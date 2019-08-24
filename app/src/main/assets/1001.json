@@ -1,0 +1,15 @@
+{
+  "type": "text",
+  "width": "match",
+  "height": "100dp",
+  "paddingTop": 20,
+  "margin": {
+    "left": 20,
+    "top": 50,
+    "right": 50
+  },
+  "background": "red",
+  "fontColor": "yellow",
+  "fontSize": "20dp",
+  "text": "hello world"
+}
