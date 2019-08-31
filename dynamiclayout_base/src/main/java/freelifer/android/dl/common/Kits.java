@@ -2,9 +2,10 @@ package freelifer.android.dl.common;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.annotation.Nullable;
 import android.util.TypedValue;
 import android.view.ViewGroup;
+
+import androidx.annotation.Nullable;
 
 /**
  * @author kzhu on 2019/8/22.
@@ -35,12 +36,14 @@ public class Kits {
 
     // match、wrap、20dp、20px(默认)
     public static int getSize(Context context, String size) {
+        if (isEmpty(size)) {
+            return 0;
+        }
         if ("wrap".equals(size)) {
             return ViewGroup.LayoutParams.WRAP_CONTENT;
         } else if ("match".equals(size)) {
             return ViewGroup.LayoutParams.MATCH_PARENT;
         } else {
-
             try {
                 return applyDimension(context, size);
             } catch (Exception e) {

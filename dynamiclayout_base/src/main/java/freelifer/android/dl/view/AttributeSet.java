@@ -12,9 +12,16 @@ import freelifer.android.dl.common.Kits;
  */
 public class AttributeSet {
 
+    private Context context;
     private JSONObject jsonObject;
 
+    @Deprecated
     public AttributeSet(JSONObject jsonObject) {
+        this.jsonObject = jsonObject;
+    }
+
+    public AttributeSet(Context context, JSONObject jsonObject) {
+        this.context = context;
         this.jsonObject = jsonObject;
     }
 
@@ -26,7 +33,14 @@ public class AttributeSet {
         return Kits.getColor(jsonObject.optString(key));
     }
 
+    @Deprecated
     public int getSize(Context context, String key, int defaultValue) {
+        String value = jsonObject.optString(key);
+        int size = Kits.getSize(context, value);
+        return size == 0 ? defaultValue : size;
+    }
+
+    public int getSize(String key, int defaultValue) {
         String value = jsonObject.optString(key);
         int size = Kits.getSize(context, value);
         return size == 0 ? defaultValue : size;
@@ -34,6 +48,29 @@ public class AttributeSet {
 
     public int optInt(String key, int defaultValue) {
         return jsonObject.optInt(key, defaultValue);
+    }
+
+
+    public void eachJSONArray1(String key, Action<JSONObject> action) {
+        if (jsonObject == null) {
+            return;
+        }
+        JSONArray jsonArray = jsonObject.optJSONArray(key);
+        if (jsonArray == null) {
+            return;
+        }
+        int len = jsonArray.length();
+        if (len <= 0) {
+            return;
+        }
+
+        for (int i = 0; i < len; i++) {
+            JSONObject obj = jsonArray.optJSONObject(i);
+            if (obj == null) {
+                continue;
+            }
+            action.call(obj);
+        }
     }
 
     public void eachJSONArray(String key, Action<AttributeSet> action) {
