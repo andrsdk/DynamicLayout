@@ -1,8 +1,7 @@
 package freelifer.android.dl.sample;
 
 import android.os.Bundle;
-
-import com.facebook.litho.ComponentContext;
+import android.view.ViewGroup;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,14 +9,19 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import androidx.appcompat.app.AppCompatActivity;
-import freelifer.android.dl.framework.LayoutDataInflater;
+
+import freelifer.android.dl.framework.DView;
+import freelifer.android.dl.framework.DViewContext;
+import freelifer.android.dl.framework.DViewLoader;
+import freelifer.android.dl.framework.DViewLoaderBuilder;
+import freelifer.android.dl.framework.value.Layout;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final ComponentContext context = new ComponentContext(this);
+//        final ComponentContext context = new ComponentContext(this);
 
         // test LithoView
 //        final Component component = Text.create(context)
@@ -30,10 +34,17 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        LayoutDataInflater.from(this).inflatView(getAssetsFile("1001.json"));
+//        LayoutDataInflater.from(this).inflate(getAssetsFile("1001.json"));
 
 
-//        ViewGroup viewGroup = findViewById(R.id.parentLinear);
+        Layout layout = new Layout("View", null, null);
+        DViewLoader loader = new DViewLoaderBuilder().build();
+        DViewContext dViewContext =loader.createContextBuilder(this)
+                .build();
+        DView dView = dViewContext.getInflater().inflate(layout, null, -1);
+
+        ViewGroup viewGroup = findViewById(R.id.parentLinear);
+        viewGroup.addView(dView.getAsView());
 
 //        DynamicLayout dl = ViewModelParser.parse(getAssetsFile("1001.json"));
 //        dl.render(viewGroup);

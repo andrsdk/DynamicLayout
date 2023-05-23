@@ -28,6 +28,7 @@ dependencies {
 
     implementation project(':dynamiclayout_base')
 
+    /**
     // Litho
     implementation 'com.facebook.litho:litho-core:0.30.0'
     implementation 'com.facebook.litho:litho-widget:0.30.0'
@@ -50,5 +51,6 @@ dependencies {
 
     annotationProcessor 'com.facebook.litho:litho-sections-processor:0.30.0'
 
+ **/
     implementation 'com.google.android:flexbox:1.0.0'
 }
